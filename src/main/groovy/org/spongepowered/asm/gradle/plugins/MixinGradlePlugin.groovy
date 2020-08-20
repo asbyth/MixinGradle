@@ -37,7 +37,7 @@ import org.gradle.api.tasks.SourceSet;
  * check that ForgeGradle is active and the things we need are accessible) and
  * add the mixin extension to the project.
  */
-public class MixinGradlePlugin implements Plugin<Project> {
+class MixinGradlePlugin implements Plugin<Project> {
     
     /* (non-Groovydoc)
      * @see org.gradle.api.Plugin#apply(java.lang.Object)
@@ -45,7 +45,7 @@ public class MixinGradlePlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         // This will throw an exception if any criteria are not met
-        this.checkEnvironment(project)
+        checkEnvironment(project)
         
         // create the mixin extension
         project.extensions.create('mixin', MixinExtension.class, project)
@@ -58,7 +58,7 @@ public class MixinGradlePlugin implements Plugin<Project> {
      * 
      * @param project Project to validate
      */
-    private void checkEnvironment(Project project) {
+    private static void checkEnvironment(Project project) {
         if (!project.tasks.findByName('genSrgs')) {
             throw new InvalidUserDataException("Could not find task 'genSrgs' on $project, ensure ForgeGradle is applied.")
         }

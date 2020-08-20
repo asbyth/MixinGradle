@@ -41,10 +41,10 @@ class Imports {
      * @return new or existing Import
      */
     static Import getAt(File file) {
-        Import imp = Imports.imports.get(file)
+        Import imp = imports.get(file)
         if (imp == null) {
             imp = new Import(file).read()
-            Imports.imports.put(file, imp)
+            imports.put(file, imp)
         }
         return imp
     }

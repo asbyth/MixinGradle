@@ -24,34 +24,28 @@
  */
 package org.spongepowered.asm.gradle.plugins
 
-import static org.spongepowered.asm.gradle.plugins.ReobfMappingType.*
-
 import com.google.common.io.Files
-import groovy.lang.MissingPropertyException
 import groovy.transform.PackageScope
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.artifacts.Configuration
-import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ProjectDependency
-import org.gradle.api.internal.file.collections.SimpleFileCollection
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.jvm.tasks.Jar
-import org.spongepowered.asm.gradle.plugins.meta.Import
 import org.spongepowered.asm.gradle.plugins.meta.Imports
 
-import java.util.HashSet
 import java.util.Map.Entry
-import java.io.File
+
+import static org.spongepowered.asm.gradle.plugins.ReobfMappingType.NOTCH
+import static org.spongepowered.asm.gradle.plugins.ReobfMappingType.SEARGE
 
 /**
  * Extension object for mixin configuration, actually manages the configuration
  * of the mixin annotation processor and extensions to sourcesets 
  */
-public class MixinExtension {
+class MixinExtension {
     
     class ReobfTask {
         final Project project
@@ -238,7 +232,7 @@ public class MixinExtension {
         
         AbstractArchiveTask.metaClass.getRefMaps = {
             if (!delegate.ext.has('refMaps')) {
-                delegate.ext.refMaps = new SimpleFileCollection()
+                delegate.ext.refMaps = project.getObjects().fileCollection()
             }
             delegate.ext.refMaps
         }
@@ -713,11 +707,11 @@ public class MixinExtension {
         }
 
         if (libs.size() == 0) {
-            return null;
+            return null
         }
         
         importsFile.newOutputStream().withStream { stream ->
-            PrintWriter writer = new PrintWriter(stream);
+            PrintWriter writer = new PrintWriter(stream)
             for (File lib : libs) {
                 Imports[lib].appendTo(writer)
             }

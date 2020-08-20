@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
-        classpath "com.gradle.publish:plugin-publish-plugin:0.9.1"
+        classpath "com.gradle.publish:plugin-publish-plugin:0.12.0"
     }
 }
 
@@ -21,8 +21,7 @@ defaultTasks 'licenseFormat', 'build'
 group = 'org.spongepowered'
 version = buildVersion + (buildType == 'RELEASE' ? '' : "-$buildType")
 archivesBaseName = 'mixingradle'
-targetCompatibility = '1.6'
-sourceCompatibility = '1.6'
+targetCompatibility = sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()

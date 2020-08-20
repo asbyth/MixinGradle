@@ -142,7 +142,7 @@ class Import {
 
         @Override
         AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-            if ("Lorg/spongepowered/asm/mixin/Mixin;".equals(desc)) {
+            if ("Lorg/spongepowered/asm/mixin/Mixin;" == desc) {
                 return this.mixin = new AnnotationNode(desc)
             }
             super.visitAnnotation(desc, visible)
@@ -185,7 +185,7 @@ class Import {
                 if (getNextValue) {
                     return (T) value
                 }
-                if (value.equals(key)) {
+                if (value == key) {
                     getNextValue = true
                 }
             }
